@@ -29,7 +29,7 @@ if [ -z "$da" ]
 then
 	git pull
 	IMAGE=test
-	OLD_VERSION=`docker images | grep $IMAGE | grep -v latest | head -1 | awk '{print $2}'`
+	OLD_VERSION=`docker images | grep -w $IMAGE | grep -v latest | head -1 | awk '{print $2}'`
 	NEW_VERION=$(addVersion $OLD_VERSION)
 	echo "New_Version: $NEW_VERION"
 	# building the image
