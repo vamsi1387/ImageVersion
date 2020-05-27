@@ -28,8 +28,7 @@ USERNAME=vamsi1387
 if [ -z "$da" ]
 then
 	git pull
-	# bump version
-	IMAGE=helloworld
+	IMAGE=test
 	OLD_VERSION=`docker images | grep $IMAGE | grep -v latest | head -1 | awk '{print $2}'`
 	NEW_VERION=$(addVersion $OLD_VERSION)
 	echo "New_Version: $NEW_VERION"
