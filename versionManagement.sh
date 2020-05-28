@@ -21,7 +21,7 @@ addVersion()
 containerid=`docker container ls -n 1 -q`
 echo $containerid
 da=`docker diff $containerid`
-IMAGE=`docker ps --format='{{.Image}}' -n 1`
+IMAGE=`docker ps --format='{{.Image}}' -n 1 | cut -d ":" -f1`
 USERNAME=vamsi1387
 
 if [ -z "$da" ]
@@ -52,5 +52,5 @@ else
         OLD_VERSION=`docker images | grep -w $IMAGE | grep -v latest | awk '{print $2}' | sort | tail -1`
         NEW_VERION=`addVersion $OLD_VERSION`
         echo "New_Version: $NEW_VERION"
-	docker commit $containerid $USERNAME/$IMAGE:$NEW_VERSION
+        docker commit $containerid $USERNAME/$IMAGE:$NEW_VERION
 fi
