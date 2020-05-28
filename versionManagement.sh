@@ -29,7 +29,7 @@ then
 	git pull
 	IMAGE=helloworld
 	docker image pull -a $USERNAME/$IMAGE
-	OLD_VERSION=`docker images | grep -w $IMAGE | grep -v latest | head -1 | awk '{print $2}'`
+	OLD_VERSION=`docker images | grep -w $IMAGE | grep -v latest | awk '{print $2}' | sort | tail -1`
 	NEW_VERION=$(addVersion $OLD_VERSION)
 	echo "New_Version: $NEW_VERION"
 	# building the image
@@ -46,7 +46,7 @@ then
 	docker push $USERNAME/$IMAGE:$NEW_VERION
 
 else
-        OLD_VERSION=`docker images | grep -w $IMAGE | grep -v latest | head -1 | awk '{print $2}'`
+        OLD_VERSION=`docker images | grep -w $IMAGE | grep -v latest | awk '{print $2}' | sort | tail -1`
         NEW_VERION=`addVersion $OLD_VERSION`
         echo "New_Version: $NEW_VERION"
 	docker commit $containerid $USERNAME/$IMAGE:$NEW_VERSION
