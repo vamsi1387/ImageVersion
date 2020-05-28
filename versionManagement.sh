@@ -46,9 +46,7 @@ then
 	docker push $USERNAME/$IMAGE:$NEW_VERION
 
 else
-        #addVersion //calling addVersion method for incrementing the image version
-        #VERSION=`cat VERSION`
-        OLD_VERSION=`docker images | grep $IMAGE | grep -v latest | head -1 | awk '{print $2}'`
+        OLD_VERSION=`docker images | grep -w $IMAGE | grep -v latest | head -1 | awk '{print $2}'`
         NEW_VERION=`addVersion $OLD_VERSION`
         echo "New_Version: $NEW_VERION"
 	docker commit $containerid $USERNAME/$IMAGE:$NEW_VERSION
