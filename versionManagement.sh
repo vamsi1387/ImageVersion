@@ -36,15 +36,18 @@ then
 	docker build -t $USERNAME/$IMAGE:latest .
 	# tag it
 	git add -A
-	git commit -m "version $NEW_VERION"
-	git tag -a "$NEW_VERION" -m "version $NEW_VERION"
-	git push
-	#git push --tags
-	docker tag $USERNAME/$IMAGE:latest $USERNAME/$IMAGE:$NEW_VERION
-	# push it
-	docker rmi -f $USERNAME/$IMAGE:latest
-	docker push $USERNAME/$IMAGE:$NEW_VERION
-
+	if [ -n "$(git status --porcelain)" ]; then
+		git commit -m "version $NEW_VERION"
+		git tag -a "$NEW_VERION" -m "version $NEW_VERION"
+		git push
+		#git push --tags
+		docker tag $USERNAME/$IMAGE:latest $USERNAME/$IMAGE:$NEW_VERION
+		# push it
+		docker rmi -f $USERNAME/$IMAGE:latest
+		docker push $USERNAME/$IMAGE:$NEW_VERION
+	else 
+		exit
+	fi
 else
         OLD_VERSION=`docker images | grep -w $IMAGE | grep -v latest | awk '{print $2}' | sort | tail -1`
         NEW_VERION=`addVersion $OLD_VERSION`
