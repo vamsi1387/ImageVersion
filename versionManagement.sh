@@ -26,17 +26,17 @@ USERNAME=vamsi1387
 
 if [ -z "$da" ]
 then
-	git pull
-	IMAGE=helloworld
-	docker image pull -a $USERNAME/$IMAGE
-	OLD_VERSION=`docker images | grep -w $IMAGE | grep -v latest | awk '{print $2}' | sort | tail -1`
-	NEW_VERION=$(addVersion $OLD_VERSION)
-	echo "New_Version: $NEW_VERION"
-	# building the image
-	docker build -t $USERNAME/$IMAGE:latest .
-	# tag it
-	git add -A
 	if [ -n "$(git status --porcelain)" ]; then
+		git pull
+		IMAGE=helloworld
+		docker image pull -a $USERNAME/$IMAGE
+		OLD_VERSION=`docker images | grep -w $IMAGE | grep -v latest | awk '{print $2}' | sort | tail -1`
+		NEW_VERION=$(addVersion $OLD_VERSION)
+		echo "New_Version: $NEW_VERION"
+		# building the image
+		docker build -t $USERNAME/$IMAGE:latest .
+		# tag it
+		git add -A
 		git commit -m "version $NEW_VERION"
 		git tag -a "$NEW_VERION" -m "version $NEW_VERION"
 		git push
