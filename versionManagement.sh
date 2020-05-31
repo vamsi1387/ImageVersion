@@ -25,7 +25,11 @@ IMAGE=`docker ps --format='{{.Image}}' -n 1 | cut -d ":" -f1`
 USERNAME=vamsi1387
 
 if [ -z "$da" ]
-then
+then    
+        commitDate=`git log -1 --pretty=format:%ct`
+	currentDate=`date +%s`
+	diff=`expr $currentDate - $commitDate`
+	#if [ diff -le 60 ]; then
 	if [ -n "$(git status --porcelain)" ]; then
 		git pull
 		IMAGE=helloworld
