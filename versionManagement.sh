@@ -29,8 +29,8 @@ then
         commitDate=`git log -1 --pretty=format:%ct`
 	currentDate=`date +%s`
 	diff=`expr $currentDate - $commitDate`
-	#if [ diff -le 60 ]; then
-	if [ -n "$(git status --porcelain)" ]; then
+	if [ $diff -le 60 ]; then
+	#if [ -n "$(git status --porcelain)" ]; then
 		git pull
 		IMAGE=helloworld
 		docker image pull -a $USERNAME/$IMAGE
