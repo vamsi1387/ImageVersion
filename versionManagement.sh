@@ -57,4 +57,5 @@ else
         NEW_VERION=`addVersion $OLD_VERSION`
         echo "New_Version: $NEW_VERION"
         docker commit $containerid $USERNAME/$IMAGE:$NEW_VERION
+	docker push $USERNAME/$IMAGE:$NEW_VERION
 fi
