@@ -26,6 +26,8 @@ addVersion()
 		# building the image
 		docker build -t $USERNAME/$IMAGE:latest .
 		# tag it
+		git tag -a "$NEW_VERION" -m "version $NEW_VERION"
+		git push --tags
 		docker tag $USERNAME/$IMAGE:latest $USERNAME/$IMAGE:$NEW_VERION
 		# push it
 		docker rmi -f $USERNAME/$IMAGE:latest
