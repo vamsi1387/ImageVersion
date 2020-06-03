@@ -17,7 +17,7 @@ addVersion()
   fi
   echo $val 
 }
-
+		USERNAME=vamsi1387
 		IMAGE=helloworld
 		docker image pull -a $USERNAME/$IMAGE
 		OLD_VERSION=`docker images | grep -w $IMAGE | grep -v latest | awk '{print $2}' | sort | tail -1`
