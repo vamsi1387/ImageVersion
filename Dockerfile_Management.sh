@@ -65,5 +65,5 @@ git push -f
 git push --tags
 docker tag $USERNAME/$IMAGE:latest $USERNAME/$IMAGE:$NEW_VERION
 # push it
-docker rmi -f $USERNAME/$IMAGE:latest
+docker push $USERNAME/$IMAGE:latest
 docker push $USERNAME/$IMAGE:$NEW_VERION

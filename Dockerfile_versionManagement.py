@@ -87,8 +87,9 @@ print("New_Version: "+str(NEW_VERSION.val))
 _rc0 = subprocess.call(["docker build -t "+str(USERNAME.val)+"/"+str(IMAGE.val)+":latest ."],shell=True)
 # tag it
 _rc0 = subprocess.call(["git tag -a "+str(NEW_VERSION.val)+" -m 'version'"],shell=True)
+_rc0 = subprocess.call(["git push -f"],shell=True)
 _rc0 = subprocess.call(["git push --tags"],shell=True)
 _rc0 = subprocess.call(["docker tag "+str(USERNAME.val)+"/"+str(IMAGE.val)+":latest "+str(USERNAME.val)+"/"+str(IMAGE.val)+":"+str(NEW_VERSION.val)],shell=True)
 # push it
-_rc0 = subprocess.call(["docker rmi -f "+str(USERNAME.val)+"/"+str(IMAGE.val)+":latest"],shell=True)
+_rc0 = subprocess.call(["docker push "+str(USERNAME.val)+"/"+str(IMAGE.val)+":latest"],shell=True)
 _rc0 = subprocess.call(["docker push "+str(USERNAME.val)+"/"+str(IMAGE.val)+":"+str(NEW_VERSION.val)],shell=True)
