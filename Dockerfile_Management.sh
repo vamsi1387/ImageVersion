@@ -59,10 +59,20 @@ echo "New_Version: $NEW_VERION"
 # building the image
 docker build -t $USERNAME/$IMAGE:latest .
 # tag it
+gitdir="$(git rev-parse --git-dir)"
+hook="$gitdir/hooks/post-commit"
+
+# disable post-commit hook temporarily
+[ -x $hook ] && chmod -x $hook
+
 git add -A
+git commit --amend -m "version $NEW_VERION"
 git tag -a "$NEW_VERION" -m "version $NEW_VERION"
 git push -f
 git push --tags
+# enable it again
+chmod +x $hook
+
 docker tag $USERNAME/$IMAGE:latest $USERNAME/$IMAGE:$NEW_VERION
 # push it
 docker push $USERNAME/$IMAGE:latest

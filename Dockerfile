@@ -6,6 +6,4 @@ COPY helloworld.sh /opt/app/
 
 WORKDIR /opt/app/
 
-COPY helloworld.sh /opt/app/
-
 CMD sh helloworld.sh
