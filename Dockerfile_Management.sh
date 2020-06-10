@@ -59,6 +59,7 @@ echo "New_Version: $NEW_VERION"
 # building the image
 docker build -t $USERNAME/$IMAGE:latest .
 # tag it
+git add -A
 git tag -a "$NEW_VERION" -m "version $NEW_VERION"
 git push
 git push --tags
