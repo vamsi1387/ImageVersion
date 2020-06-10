@@ -85,7 +85,11 @@ print("New_Version: "+str(NEW_VERSION.val))
 
 #building the image
 _rc0 = subprocess.call(["docker build -t "+str(USERNAME.val)+"/"+str(IMAGE.val)+":latest ."],shell=True)
+_rc0 = subprocess.call(["gitdir="$(git rev-parse --git-dir)"],shell=True)
+hook="$gitdir/hooks/post-commit"
+
 # tag it
+_rc0 = subprocess.call(["git add -A"],shell=True)
 _rc0 = subprocess.call(["git tag -a "+str(NEW_VERSION.val)+" -m 'version'"],shell=True)
 _rc0 = subprocess.call(["git push -f"],shell=True)
 _rc0 = subprocess.call(["git push --tags"],shell=True)
