@@ -61,7 +61,7 @@ docker build -t $USERNAME/$IMAGE:latest .
 # tag it
 git add -A
 git tag -a "$NEW_VERION" -m "version $NEW_VERION"
-git push
+git push -f
 git push --tags
 docker tag $USERNAME/$IMAGE:latest $USERNAME/$IMAGE:$NEW_VERION
 # push it
