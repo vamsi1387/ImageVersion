@@ -27,7 +27,12 @@ def Make(name, local=locals()):
 Make("gitdir").setValue(os.popen("git rev-parse --git-dir").read().rstrip("\n"))
 print(gitdir.val)
 
-Make("hook").setValue(os.popen(str(gitdir.val)+"/hooks/post-commit").read().rstrip("\n"))
+#Make("hook").setValue(os.popen(str(gitdir.val)+"/hooks/post-commit").read().rstrip("\n"))
 
+hook=str(gitdir.val)+"/hooks/post-commit"
+print(hook)
 # disable post-commit hook temporarily
-#os.chmod('hook', 0o744)
+#_rc0 = subprocess.call(['chmod', '0744', 'hook'],shell=True)
+os.chmod(hook, 0o644)
+os.chmod(hook, 0o755)
+
