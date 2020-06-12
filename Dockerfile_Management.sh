@@ -50,11 +50,12 @@ addVersion()
 }
 
 
-USERNAME=vamsi1387
-IMAGE=helloworld
+USERNAME=$1
+IMAGE=$2
+TYPE=$3
 docker image pull -a $USERNAME/$IMAGE
 OLD_VERSION=`docker images | grep -w $IMAGE | grep -v latest | awk '{print $2}' | sort -V | tail -1`
-NEW_VERION=$(addVersion $OLD_VERSION)
+NEW_VERION=$(addVersion $OLD_VERSION $TYPE)
 echo "New_Version: $NEW_VERION"
 # building the image
 docker build -t $USERNAME/$IMAGE:latest .
