@@ -72,10 +72,24 @@ def addVersion (_p1,_p2) :
     return ver.val
 
 
+n = len(sys.argv)
+if n == 1:
+        print("Usage: python "+sys.argv[0]+"  <Docker_Username> <Image_Name> <Release_Type>")
+        print("\tRelease_Type can be major/minor/patch")
+        print("Example: python "+sys.argv[0]+"  vamsi1387 helloworld patch")
+        exit()
+elif n==3:
+        Make("USERNAME").setValue(sys.argv[1])
+	Make("IMAGE").setValue(sys.argv[2])
+        Make("TYPE").setValue("PATCH")
+elif n==4:
+        Make("USERNAME").setValue(sys.argv[1])
+	Make("IMAGE").setValue(sys.argv[2])
+        Make("TYPE").setValue(sys.argv[3])
 
-USERNAME=FileVersioning("vamsi1387")
-IMAGE=FileVersioning("helloworld")
-TYPE=FileVersioning("PATCH")
+#USERNAME=FileVersioning("vamsi1387")
+#IMAGE=FileVersioning("helloworld")
+#TYPE=FileVersioning("PATCH")
 _rc0 = subprocess.call(["docker image pull -a "+str(USERNAME.val)+"/"+str(IMAGE.val)],shell=True)
 
 Make("OLD_VERSION").setValue(os.popen("docker images | grep -w "+str(IMAGE.val)+" |grep -iv latest |  awk '{print $2}' | sort -V | tail -1").read().rstrip("\n"))
